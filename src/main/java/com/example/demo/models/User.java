@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "id")
@@ -47,7 +48,9 @@ public class User {
 
     }
 
-
+    public Integer getId() {
+        return id;
+    }
     public String getEmail() {
         return email;
     }

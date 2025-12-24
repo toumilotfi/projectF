@@ -5,10 +5,12 @@ import com.example.demo.repositories.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class NotificationService {
+
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -19,6 +21,8 @@ public class NotificationService {
         notification.setUserId(userId);
         notification.setTitle(title);
         notification.setMessage(message);
+        notification.setRead(false); // par défaut non lu
+        notification.setCreatedAt(LocalDateTime.now());
         notificationRepository.save(notification);
     }
 

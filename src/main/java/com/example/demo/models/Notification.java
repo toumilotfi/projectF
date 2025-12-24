@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "notifications")
@@ -11,6 +12,8 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
+    private String title;
 
     @Column(length = 1000, nullable = false)
     private String message;
@@ -25,12 +28,37 @@ public class Notification {
     private LocalDateTime createdAt;
 
     // Getters & Setters
+
+    public Notification(Integer id) {
+        this.id = id;
+    }
+
+    public Notification() {
+    }
+
+    public Notification(Integer id, String title, String message, Integer userId, boolean isRead, LocalDateTime createdAt) {
+        this.id = id;
+        this.title = title;
+        this.message = message;
+        this.userId = userId;
+        this.isRead = isRead;
+        this.createdAt = createdAt;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {
@@ -65,6 +93,15 @@ public class Notification {
         this.createdAt = createdAt;
     }
 
-    public void setTitle(String title) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Notification that = (Notification) o;
+        return isRead == that.isRead && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(message, that.message) && Objects.equals(userId, that.userId) && Objects.equals(createdAt, that.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, message, userId, isRead, createdAt);
     }
 }

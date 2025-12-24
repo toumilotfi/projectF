@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.Service.EmailService;
 import com.example.demo.Service.NotificationService;
+import com.example.demo.models.Notification;
 import com.example.demo.models.Task;
 import com.example.demo.models.User;
 import com.example.demo.repositories.TaskRepository;
@@ -24,7 +25,6 @@ public class AdminController {
     private NotificationService notificationService;
     @Autowired
     private EmailService emailService;
-
     @Autowired
     private TaskRepository taskRepository;
 
@@ -109,6 +109,7 @@ public class AdminController {
         Task savedTask = taskRepository.save(task);
 
         // Send notification to assigned user
+
         notificationService.createNotification(
                 task.getAssignedToUserId(),
                 "New Task Assigned",
@@ -164,4 +165,27 @@ public class AdminController {
         return "Notification sent to user " + userId;
     }
 
+    @PostMapping("/notify/all")
+    public String notifyAllUsers(@RequestParam String message) {
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            notificationService.createNotification(
+                    user.getId(),
+                    "Admin Message",
+                    message
+            );
+        }
+        return "Notifications sent to all users";
+    }
+
+    @GetMapping("/notifications/status/{userId}")
+    public List<Notification> getUserNotificationsStatus(@PathVariable Integer userId) {
+        return notificationService.getUserNotifications(userId);
+    }
+
+    /*
+    @GetMapping("/send")
+    public String send(@RequestParam String msg) {
+        return service.broadcast(msg);
+    }*/
 }
