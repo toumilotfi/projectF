@@ -27,7 +27,6 @@ public class Notification {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    // Getters & Setters
 
     public Notification(Integer id) {
         this.id = id;

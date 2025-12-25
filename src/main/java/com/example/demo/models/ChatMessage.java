@@ -51,7 +51,6 @@ public class ChatMessage {
         this.read = false;
     }
 
-    // ✅ GETTERS & SETTERS
 
     public Integer getId() {
         return id;

@@ -16,7 +16,7 @@ public class Email {
 
     private String toEmail;
     private String subject;
-    private String status; // SENT / FAILED
+    private String status;
 
     private LocalDateTime sentAt;
 }

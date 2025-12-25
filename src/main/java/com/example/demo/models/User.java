@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -51,6 +52,27 @@ public class User {
     public Integer getId() {
         return id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSecretPassword() {
+        return secretPassword;
+    }
+
+    public void setSecretPassword(String secretPassword) {
+        this.secretPassword = secretPassword;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -65,22 +87,6 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getSecretPassword() {
-        return secretPassword;
-    }
-
-    public void setSecretPassword(String secretPassword) {
-        this.secretPassword = secretPassword;
     }
 
     public Boolean getUserActive() {
@@ -101,13 +107,13 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return id != null && id.equals(user.id);
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(secretPassword, user.secretPassword) && Objects.equals(userActive, user.userActive) && Objects.equals(createdAt, user.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, email, firstName, lastName, secretPassword, userActive, createdAt);
     }
 }
