@@ -21,7 +21,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping(AppConstants.API_BASE_URL + "/User")
-public class User {
+public class UserController {
 
     private final TaskService taskService;
     @Autowired
@@ -34,7 +34,8 @@ public class User {
     private ChatProducer chatProducer;
     @Autowired
     private NotificationService notificationService;
-    public User(TaskService taskService) {
+
+    public UserController(TaskService taskService) {
         this.taskService = taskService;
     }
 
